@@ -1,4 +1,4 @@
-from corpus import reference_list
+from modules.corpus import reference_list
 
 def encrypt(phrase, shift):
     encrypted_phrase = ""
@@ -31,8 +31,52 @@ def crack(encrypted_phrase):
         decrypted_phrase = decrypt(encrypted_phrase, shift)
         test_phrase = decrypted_phrase.split()
 
-        if all(word.lower() in reference_list for word in test_phrase):
+        if all(word.lower() in reference_list for word in test_phrase if word.isalpha()):
             return ' '.join(test_phrase)
+    else:
+        return ''
 
-phrase = encrypt('Cross the Rubicon', 3)
-print(crack(phrase))
+def get_user_method():
+    print('Would you like to (e)ncrypt, (d)ecrypt, or (c)rack a message?')
+    global user_method
+    user_method = input('> ')
+    return user_method
+        
+def get_user_message():
+    print('Please enter your message: ')
+    global message
+    message = input('> ')
+    return message
+
+def run_encryption(message):
+        print('Please enter the number of shifts for this message')
+        shift_input = input('> ')
+        shift = int(shift_input)
+        encrypted_message = encrypt(message, shift)
+        print(encrypted_message)
+        return encrypted_message
+
+def run_decryption(message):
+    print('Please enter the number of shifts for this message')
+    shift_input = input('> ')
+    shift = int(shift_input)
+    decrypted_message = decrypt(message, shift)
+    print(decrypted_message)
+    return decrypted_message
+
+user_method = None
+message = None
+
+
+if __name__ == '__main__':
+    get_user_method()
+    get_user_message()
+    
+    if user_method == 'e':
+        run_encryption(message)
+    if user_method == 'd':
+        run_decryption(message)
+
+
+    
+    
