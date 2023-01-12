@@ -37,7 +37,7 @@ def crack(encrypted_phrase):
         return ''
 
 def get_user_method():
-    print('Would you like to (e)ncrypt, (d)ecrypt, or (c)rack a message?')
+    print('Would you like to (e)ncrypt, (d)ecrypt, (c)rack a message, or (q)uit?')
     global user_method
     user_method = input('> ')
     return user_method
@@ -49,12 +49,12 @@ def get_user_message():
     return message
 
 def run_encryption(message):
-        print('Please enter the number of shifts for this message')
-        shift_input = input('> ')
-        shift = int(shift_input)
-        encrypted_message = encrypt(message, shift)
-        print(encrypted_message)
-        return encrypted_message
+    print('Please enter the number of shifts for this message')
+    shift_input = input('> ')
+    shift = int(shift_input)
+    encrypted_message = encrypt(message, shift)
+    print(encrypted_message)
+    return encrypted_message
 
 def run_decryption(message):
     print('Please enter the number of shifts for this message')
@@ -64,19 +64,30 @@ def run_decryption(message):
     print(decrypted_message)
     return decrypted_message
 
+def run_crack(message):
+    cracked_message = crack(message)
+    print(cracked_message)
+    return cracked_message
+
+def run_methods(message):
+    if user_method == 'e':
+        return run_encryption(message)
+    if user_method == 'd':
+        return run_decryption(message)
+    if user_method == 'c':
+        return run_crack(message)
+
+def run_program(method, user_message):
+    while True:
+        get_user_method()
+        if user_method == 'q':
+            break
+        get_user_message()
+        run_methods(message)
+
 user_method = None
 message = None
 
 
 if __name__ == '__main__':
-    get_user_method()
-    get_user_message()
-    
-    if user_method == 'e':
-        run_encryption(message)
-    if user_method == 'd':
-        run_decryption(message)
-
-
-    
-    
+    run_program(user_method, message)

@@ -26,7 +26,7 @@
 
 ## How to initialize/run your application
 
-* The application is currently set up 
+* 
 
 ## Tests
 
